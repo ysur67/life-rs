@@ -1,18 +1,18 @@
-use crate::{internal::field_manager::PlayfieldManager, models::playfield::Playfield};
+use crate::{internal::field_manager::manager::PlayfieldManager, models::playfield::Playfield};
 
 use super::mutator::PlayfieldMutator;
 
-pub struct ConwaysRulesPlayfieldMutator {
-    manager: PlayfieldManager,
+pub struct ConwaysRulesPlayfieldMutator<'a> {
+    manager: &'a (dyn PlayfieldManager + 'a),
 }
 
-impl ConwaysRulesPlayfieldMutator {
-    pub fn new(manager: PlayfieldManager) -> Self {
+impl<'a> ConwaysRulesPlayfieldMutator<'a> {
+    pub fn new(manager: &'a impl PlayfieldManager) -> Self {
         return ConwaysRulesPlayfieldMutator { manager };
     }
 }
 
-impl PlayfieldMutator for ConwaysRulesPlayfieldMutator {
+impl<'a> PlayfieldMutator for ConwaysRulesPlayfieldMutator<'a> {
     fn mutate(&self, field: &mut Playfield) {
         let mut cells = field.get_cells().clone();
         for (row_index, row) in cells.iter_mut().enumerate() {

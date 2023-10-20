@@ -1,9 +1,11 @@
 use crate::models::{cell::Square, playfield::Playfield};
 
-pub struct PlayfieldManager {}
+use super::manager::PlayfieldManager;
 
-impl PlayfieldManager {
-    pub fn get_cells_around(&self, row: usize, col: usize, field: &Playfield) -> Vec<Square> {
+pub struct NaivePlayfieldManager {}
+
+impl PlayfieldManager for NaivePlayfieldManager {
+    fn get_cells_around(&self, row: usize, col: usize, field: &Playfield) -> Vec<Square> {
         if row > field.inner_size || col > field.inner_size {
             return vec![];
         }

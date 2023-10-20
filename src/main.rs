@@ -1,7 +1,7 @@
 use std::{collections::HashMap, thread, time::Duration};
 
 use internal::{
-    field_manager::PlayfieldManager,
+    field_manager::{manager::PlayfieldManager, naive::NaivePlayfieldManager},
     field_mutator::{conways_mutator::ConwaysRulesPlayfieldMutator, mutator::PlayfieldMutator},
 };
 use models::{cell::Square, position::Position};
@@ -17,8 +17,8 @@ mod internal;
 mod models;
 
 fn main() {
-    let manager = PlayfieldManager {};
-    let mutator = ConwaysRulesPlayfieldMutator::new(manager);
+    let manager = NaivePlayfieldManager {};
+    let mutator = ConwaysRulesPlayfieldMutator::new(&manager);
     let size = 20;
     let mut field = Playfield::create(size);
     let mut initial_changes = HashMap::new();

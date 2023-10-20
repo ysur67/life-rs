@@ -1,10 +1,13 @@
-use crate::{internal::field_manager::PlayfieldManager, models::playfield::Playfield};
+use crate::{
+    internal::field_manager::{manager::PlayfieldManager, naive::NaivePlayfieldManager},
+    models::playfield::Playfield,
+};
 
 #[test]
 fn test_get_cells_around() {
     let field_size = 100;
     let field = Playfield::create(field_size);
-    let manager = PlayfieldManager {};
+    let manager = NaivePlayfieldManager {};
     let cells_around_for_corner_cell_size = 3;
     let left_top_corner = manager.get_cells_around(0, 0, &field);
     assert_eq!(left_top_corner.len(), cells_around_for_corner_cell_size);

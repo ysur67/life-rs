@@ -18,8 +18,7 @@ impl ConwaysRulesPlayfieldMutator {
 }
 
 impl PlayfieldMutator for ConwaysRulesPlayfieldMutator {
-    fn mutate(&self, field: &mut Playfield) -> HashMap<Position, Square> {
-        let mut result: HashMap<Position, Square> = HashMap::new();
+    fn mutate(&self, field: &mut Playfield) {
         let mut cells = field.get_cells().clone();
         for (row_index, row) in cells.iter_mut().enumerate() {
             for (col_index, square) in row.iter_mut().enumerate() {
@@ -35,7 +34,6 @@ impl PlayfieldMutator for ConwaysRulesPlayfieldMutator {
             }
         }
         field.update_whole(cells);
-        return result;
     }
 }
 

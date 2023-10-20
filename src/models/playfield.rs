@@ -7,6 +7,10 @@ pub struct Playfield {
 }
 
 impl Playfield {
+    pub fn get_cells(&self) -> &Vec<Vec<Cell>> {
+        return &self.cells;
+    }
+
     pub fn create(size: usize) -> Self {
         let inner_size = size + 1;
         let cells: Vec<Vec<Cell>> = (1..inner_size)

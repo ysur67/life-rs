@@ -33,7 +33,7 @@ impl PlayfieldMutator for ConwaysRulesPlayfieldMutator {
                 square.is_alive = is_alive;
             }
         }
-        field.update_whole(cells);
+        field.update_field(cells);
     }
 }
 

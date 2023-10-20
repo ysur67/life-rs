@@ -28,7 +28,7 @@ impl Playfield {
             .collect();
         return Playfield {
             size,
-            cells: cells,
+            cells,
             inner_size,
         };
     }
@@ -39,20 +39,7 @@ impl Playfield {
         }
     }
 
-    pub fn update_whole(&mut self, changes: Vec<Vec<Square>>) {
+    pub fn update_field(&mut self, changes: Vec<Vec<Square>>) {
         self.cells = changes;
-    }
-
-    pub fn apply_single_change(&mut self, position: Position) {
-        // let cell = self.cells[position.row][position.col];
-        // let around_cells = self.get_cells_around(position.row, position.col);
-        // let is_alive: bool;
-        // if cell.is_alive == false {
-        //     is_alive = around_cells.len() == 3;
-        // } else {
-        //     is_alive = around_cells.len() == 3 || around_cells.len() == 2;
-        // }
-        // self.cells[position.row][position.col] =
-        //     Square::create(Some(is_alive), position.row, position.col);
     }
 }

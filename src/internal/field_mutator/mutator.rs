@@ -1,6 +1,6 @@
-use std::collections::HashMap;
 
-use crate::models::{cell::Square, playfield::Playfield, position::Position};
+
+use crate::models::{playfield::Playfield};
 
 pub trait PlayfieldMutator {
     fn mutate(&self, field: &mut Playfield);

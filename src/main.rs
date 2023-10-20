@@ -2,10 +2,7 @@ use std::{collections::HashMap, thread, time::Duration};
 
 use internal::{
     field_manager::PlayfieldManager,
-    field_mutator::{
-        conways_mutator::ConwaysRulesPlayfieldMutator,
-        mutator::{self, PlayfieldMutator},
-    },
+    field_mutator::{conways_mutator::ConwaysRulesPlayfieldMutator, mutator::PlayfieldMutator},
 };
 use models::{cell::Square, position::Position};
 
@@ -26,10 +23,7 @@ fn main() {
     let mut field = Playfield::create(size);
     let mut initial_changes = HashMap::new();
     for index in 0..size {
-        initial_changes.insert(
-            Position::create(index, index),
-            Square::create(Some(true), index, index),
-        );
+        initial_changes.insert(Position::create(index, index), Square::create(Some(true)));
     }
     field.apply_changes(&initial_changes);
     loop {

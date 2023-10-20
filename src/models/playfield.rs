@@ -1,4 +1,4 @@
-use std::{cell::Cell, collections::HashMap};
+use std::collections::HashMap;
 
 use super::{cell::Square, position::Position};
 
@@ -20,11 +20,7 @@ impl Playfield {
     pub fn create(size: usize) -> Self {
         let inner_size = size;
         let cells: Vec<Vec<Square>> = (0..inner_size)
-            .map(|row| {
-                (0..inner_size)
-                    .map(|col| Square::create(None, row, col))
-                    .collect()
-            })
+            .map(|_| (0..inner_size).map(|_| Square::create(None)).collect())
             .collect();
         return Playfield {
             size,

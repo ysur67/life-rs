@@ -10,7 +10,7 @@ impl PlayfieldPrinter for ConsolePlayfieldPrinter {
         for row in field.get_cells() {
             let mut row_repr = "".to_string();
             for cell in row {
-                let cell_repr = if cell.is_alive { "#" } else { " " };
+                let cell_repr = if cell.is_alive() { "#" } else { " " };
                 row_repr.push_str(cell_repr);
             }
             println!("{}", row_repr);

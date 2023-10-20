@@ -2,6 +2,7 @@ use crate::models::{cell::Square, playfield::Playfield};
 
 use super::manager::PlayfieldManager;
 
+#[deprecated()]
 pub struct NaivePlayfieldManager {}
 
 impl PlayfieldManager for NaivePlayfieldManager {

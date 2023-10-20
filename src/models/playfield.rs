@@ -17,6 +17,18 @@ impl Playfield {
         return self.cells.len();
     }
 
+    pub fn get_square(&self, row: isize, col: isize) -> Option<Square> {
+        let _row = self.cells.get(row as usize);
+        if _row.is_none() {
+            return None;
+        }
+        let _col = _row.unwrap().get(col as usize);
+        if _col.is_none() {
+            return None;
+        }
+        return _col.map(|el| el.clone());
+    }
+
     pub fn create(size: usize) -> Self {
         let inner_size = size;
         let cells: Vec<Vec<Square>> = (0..inner_size)

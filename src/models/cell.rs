@@ -1,16 +1,16 @@
 #[derive(Copy, Clone)]
-pub struct Cell {
+pub struct Square {
     pub is_alive: bool,
+    pub row: usize,
+    pub col: usize,
 }
 
-impl Cell {
-    pub fn create(is_alive: Option<bool>) -> Self {
-        return Cell {
+impl Square {
+    pub fn create(is_alive: Option<bool>, row: usize, col: usize) -> Self {
+        return Square {
             is_alive: is_alive.unwrap_or(false),
+            row,
+            col,
         };
-    }
-
-    pub fn set_is_alive(&mut self, is_alive: bool) {
-        self.is_alive = is_alive;
     }
 }

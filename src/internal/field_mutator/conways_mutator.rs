@@ -7,32 +7,34 @@ use crate::{
 
 use super::mutator::PlayfieldMutator;
 
-pub struct ConwaysRulesPlayfieldMutator {}
+pub struct ConwaysRulesPlayfieldMutator {
+    manager: PlayfieldManager,
+}
+
+impl ConwaysRulesPlayfieldMutator {
+    pub fn new(manager: PlayfieldManager) -> Self {
+        return ConwaysRulesPlayfieldMutator { manager };
+    }
+}
 
 impl PlayfieldMutator for ConwaysRulesPlayfieldMutator {
-    fn mutate(&self, field: &Playfield) -> HashMap<Position, Square> {
+    fn mutate(&self, field: &mut Playfield) -> HashMap<Position, Square> {
         let mut result: HashMap<Position, Square> = HashMap::new();
-        let manager = PlayfieldManager {};
-        for (row_index, row) in field.get_cells().iter().enumerate() {
-            for (col_index, cell) in row.iter().enumerate() {
-                let around_cells = manager.get_cells_around(row_index, col_index, &field);
-                if cell.is_alive == false {
-                    result.insert(
-                        Position::create(row_index, col_index),
-                        Square::create(Some(around_cells.len() == 3), row_index, col_index),
-                    );
+        let mut cells = field.get_cells().clone();
+        for (row_index, row) in cells.iter_mut().enumerate() {
+            for (col_index, square) in row.iter_mut().enumerate() {
+                let around_cells = self.manager.get_cells_around(row_index, col_index, &field);
+                let is_alive: bool;
+                let alive_count = around_cells.iter().filter(|el| el.is_alive).count();
+                if square.is_alive == false {
+                    is_alive = alive_count == 3;
                 } else {
-                    result.insert(
-                        Position::create(row_index, col_index),
-                        Square::create(
-                            Some(around_cells.len() == 3 || around_cells.len() == 2),
-                            row_index,
-                            col_index,
-                        ),
-                    );
+                    is_alive = alive_count == 3 || alive_count == 2;
                 }
+                square.is_alive = is_alive;
             }
         }
+        field.update_whole(cells);
         return result;
     }
 }

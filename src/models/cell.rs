@@ -9,4 +9,8 @@ impl Cell {
             is_alive: is_alive.unwrap_or(false),
         };
     }
+
+    pub fn set_is_alive(&mut self, is_alive: bool) {
+        self.is_alive = is_alive;
+    }
 }

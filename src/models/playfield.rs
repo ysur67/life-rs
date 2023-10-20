@@ -1,4 +1,6 @@
-use super::cell::Cell;
+use std::collections::HashMap;
+
+use super::{cell::Cell, position::Position};
 
 pub struct Playfield {
     pub size: usize,
@@ -21,6 +23,12 @@ impl Playfield {
             cells,
             inner_size,
         };
+    }
+
+    pub fn apply_changes(&mut self, changes: &HashMap<Position, Cell>) {
+        for (key, value) in changes.iter() {
+            self.cells[key.row][key.col] = *value;
+        }
     }
 
     pub fn get_cells_around(&self, row: usize, col: usize) -> Vec<Cell> {

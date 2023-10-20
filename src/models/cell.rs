@@ -1,3 +1,4 @@
+#[derive(Copy, Clone)]
 pub struct Cell {
     pub is_alive: bool,
 }

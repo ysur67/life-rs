@@ -4,7 +4,7 @@ pub struct Square {
 }
 
 impl Square {
-    pub fn create(is_alive: Option<bool>) -> Self {
+    pub fn new(is_alive: Option<bool>) -> Self {
         return Square {
             is_alive: is_alive.unwrap_or(false),
         };

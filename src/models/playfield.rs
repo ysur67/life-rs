@@ -33,9 +33,9 @@ impl Playfield {
         return _col.map(|el| el.clone());
     }
 
-    pub fn create(size: usize) -> Self {
+    pub fn new(size: usize) -> Self {
         let cells: Vec<Vec<Square>> = (0..size)
-            .map(|_| (0..size).map(|_| Square::create(None)).collect())
+            .map(|_| (0..size).map(|_| Square::new(None)).collect())
             .collect();
         return Playfield { size, cells };
     }

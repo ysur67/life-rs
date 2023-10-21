@@ -41,7 +41,7 @@ mod tests {
     #[test]
     fn test_for_loop_based_manager_get_cells_around() {
         let field_size = 100;
-        let field = Playfield::create(field_size + 1);
+        let field = Playfield::new(field_size + 1);
         let manager = ForLoopBasedPlayfieldManager {};
         let cells_around_for_corner_cell_size = 3;
         let left_top_corner = manager.get_cells_around(0, 0, &field);

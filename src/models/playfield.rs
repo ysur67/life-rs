@@ -4,7 +4,6 @@ use super::{cell::Square, position::Position};
 
 pub struct Playfield {
     pub size: usize,
-    pub inner_size: usize,
     cells: Vec<Vec<Square>>,
 }
 
@@ -35,32 +34,15 @@ impl Playfield {
     }
 
     pub fn create(size: usize) -> Self {
-        let inner_size = size;
-        let cells: Vec<Vec<Square>> = (0..inner_size)
-            .map(|_| (0..inner_size).map(|_| Square::create(None)).collect())
+        let cells: Vec<Vec<Square>> = (0..size)
+            .map(|_| (0..size).map(|_| Square::create(None)).collect())
             .collect();
-        return Playfield {
-            size,
-            cells,
-            inner_size,
-        };
+        return Playfield { size, cells };
     }
 
     pub fn apply_changes(&mut self, changes: &HashMap<Position, Square>) {
         for (key, value) in changes.iter() {
             self.cells[key.row][key.col] = value.clone();
         }
-    }
-
-    pub fn update_field(&mut self, changes: Vec<Vec<Square>>) {
-        self.cells = changes;
-    }
-
-    pub fn from_cells(cells: Vec<Vec<Square>>) -> Self {
-        return Playfield {
-            size: cells.len(),
-            inner_size: cells.len(),
-            cells: cells,
-        };
     }
 }

@@ -7,7 +7,7 @@ pub struct NaivePlayfieldManager {}
 
 impl PlayfieldManager for NaivePlayfieldManager {
     fn get_cells_around(&self, row: usize, col: usize, field: &Playfield) -> Vec<Square> {
-        if row > field.inner_size || col > field.inner_size {
+        if row > field.size || col > field.size {
             return vec![];
         }
         let inner_row = if row > 0 { row - 1 } else { row };

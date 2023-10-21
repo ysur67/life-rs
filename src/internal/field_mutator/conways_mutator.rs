@@ -1,4 +1,9 @@
-use crate::{internal::field_manager::manager::PlayfieldManager, models::playfield::Playfield};
+use std::{borrow::BorrowMut, cell::RefCell, collections::HashMap, rc::Rc, vec};
+
+use crate::{
+    internal::field_manager::manager::PlayfieldManager,
+    models::{cell::Square, playfield::Playfield, position::Position},
+};
 
 use super::mutator::PlayfieldMutator;
 
@@ -14,18 +19,20 @@ impl<'a> ConwaysRulesPlayfieldMutator<'a> {
 
 impl<'a> PlayfieldMutator for ConwaysRulesPlayfieldMutator<'a> {
     fn mutate(&self, field: &mut Playfield) {
-        let mut cells = field.get_cells().clone();
-        for (row_index, row) in cells.iter_mut().enumerate() {
-            for (col_index, square) in row.iter_mut().enumerate() {
-                let around_cells = self.manager.get_cells_around(row_index, col_index, &field);
-                let alive_count = around_cells.iter().filter(|el| el.is_alive()).count();
-                square.set_is_alive(if !square.is_alive() {
-                    alive_count == 3
+        let mut changes: HashMap<Position, Square> = HashMap::new();
+        for (row_index, row) in field.get_cells().iter().enumerate() {
+            for (col_index, square) in row.iter().enumerate() {
+                let alive_count = self
+                    .manager
+                    .get_alive_cells_around_count(row_index, col_index, field);
+                let new_square = Square::create(if !square.is_alive() {
+                    Some(alive_count == 3)
                 } else {
-                    alive_count == 3 || alive_count == 2
+                    Some(alive_count == 3 || alive_count == 2)
                 });
+                changes.insert(Position::create(row_index, col_index), new_square);
             }
         }
-        field.update_field(cells);
+        field.apply_changes(&changes)
     }
 }

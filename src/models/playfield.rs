@@ -14,7 +14,12 @@ impl Playfield {
     }
 
     pub fn get_alive_count(&self) -> usize {
-        return self.cells.len();
+        return self
+            .cells
+            .iter()
+            .flatten()
+            .filter(|el| el.is_alive())
+            .count();
     }
 
     pub fn get_square(&self, row: isize, col: isize) -> Option<Square> {
@@ -49,5 +54,13 @@ impl Playfield {
 
     pub fn update_field(&mut self, changes: Vec<Vec<Square>>) {
         self.cells = changes;
+    }
+
+    pub fn from_cells(cells: Vec<Vec<Square>>) -> Self {
+        return Playfield {
+            size: cells.len(),
+            inner_size: cells.len(),
+            cells: cells,
+        };
     }
 }

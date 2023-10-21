@@ -1,5 +1,8 @@
 use crate::{
-    internal::field_manager::{manager::PlayfieldManager, naive::NaivePlayfieldManager, forloop_based_manager::ForLoopBasedPlayfieldManager},
+    internal::field_manager::{
+        forloop_based_manager::ForLoopBasedPlayfieldManager, manager::PlayfieldManager,
+        naive::NaivePlayfieldManager,
+    },
     models::playfield::Playfield,
 };
 

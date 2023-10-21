@@ -76,4 +76,9 @@ impl PlayfieldManager for NaivePlayfieldManager {
             .map(|el| el.unwrap())
             .collect();
     }
+
+    fn get_alive_cells_around_count(&self, row: usize, col: usize, field: &Playfield) -> usize {
+        let cells = self.get_cells_around(row, col, field);
+        return cells.iter().filter(|el| el.is_alive()).count();
+    }
 }

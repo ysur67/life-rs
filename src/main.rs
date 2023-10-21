@@ -1,7 +1,9 @@
 use std::{collections::HashMap, thread, time::Duration};
 
 use internal::{
-    field_manager::forloop_based_manager::ForLoopBasedPlayfieldManager,
+    field_manager::{
+        forloop_based_manager::ForLoopBasedPlayfieldManager, naive::NaivePlayfieldManager,
+    },
     field_mutator::{conways_mutator::ConwaysRulesPlayfieldMutator, mutator::PlayfieldMutator},
 };
 use models::{cell::Square, position::Position};
@@ -19,12 +21,9 @@ mod models;
 fn main() {
     let manager = ForLoopBasedPlayfieldManager {};
     let mutator = ConwaysRulesPlayfieldMutator::new(&manager);
-    let size = 20;
+    let size = 4;
     let mut field = Playfield::create(size);
-    let mut initial_changes = HashMap::new();
-    for index in 0..size {
-        initial_changes.insert(Position::create(index, index), Square::create(Some(true)));
-    }
+    let initial_changes = build_beacon_pattern();
     field.apply_changes(&initial_changes);
     loop {
         let printer = ConsolePlayfieldPrinter {};
@@ -35,6 +34,19 @@ fn main() {
             println!("Game Over");
             break;
         }
-        thread::sleep(Duration::from_millis(300));
+        thread::sleep(Duration::from_millis(250));
     }
+}
+
+fn build_beacon_pattern() -> HashMap<Position, Square> {
+    let mut result = HashMap::new();
+    result.insert(Position::create(0, 0), Square::create(Some(true)));
+    result.insert(Position::create(0, 1), Square::create(Some(true)));
+    result.insert(Position::create(1, 0), Square::create(Some(true)));
+    result.insert(Position::create(1, 1), Square::create(Some(true)));
+    result.insert(Position::create(2, 2), Square::create(Some(true)));
+    result.insert(Position::create(2, 3), Square::create(Some(true)));
+    result.insert(Position::create(3, 2), Square::create(Some(true)));
+    result.insert(Position::create(3, 3), Square::create(Some(true)));
+    return result;
 }

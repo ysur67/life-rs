@@ -13,8 +13,4 @@ impl Square {
     pub fn is_alive(&self) -> bool {
         return self.is_alive;
     }
-
-    pub fn set_is_alive(&mut self, is_alive: bool) {
-        self.is_alive = is_alive;
-    }
 }

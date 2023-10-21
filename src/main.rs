@@ -1,9 +1,7 @@
 use std::{collections::HashMap, thread, time::Duration};
 
 use internal::{
-    field_manager::{
-        forloop_based_manager::ForLoopBasedPlayfieldManager, naive::NaivePlayfieldManager,
-    },
+    field_manager::forloop_based_manager::ForLoopBasedPlayfieldManager,
     field_mutator::{conways_mutator::ConwaysRulesPlayfieldMutator, mutator::PlayfieldMutator},
 };
 use models::{cell::Square, position::Position};
